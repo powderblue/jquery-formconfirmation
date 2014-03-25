@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jquery-formconfirmation</title>
+        <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css"/>
+    </head>
+
+    <body>
+        <div id="qunit"></div>
+
+        <div id="qunit-fixture">
+            <div id="test_1">
+                <form>
+                    <div>
+                        <label for="test_1__text">Text INPUT</label>
+                        <input type="text" id="test_1__text" value="Hello world!"/>
+                    </div>
+                    <div>
+                        <label for="test_1__select">SELECT</label>
+                        <select id="test_1__select">
+                            <option value="1">One</option>
+                            <option value="2" selected="selected">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="test_1__textarea">TEXTAREA</label>
+                        <textarea id="test_1__textarea">Lorem ipsum dolor.</textarea>
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit"/>
+                    </div>
+                </form>
+            </div>
+
+            <div id="test_2">
+                <form>
+                    <div>
+                        <label>
+                            <span>Text INPUT</span>
+                            <input type="text" value="Hello world!"/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <span>SELECT</span>
+                            <select>
+                                <option value="1">One</option>
+                                <option value="2" selected="selected">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <span>TEXTAREA</span>
+                            <textarea>Lorem ipsum dolor.</textarea>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="../jquery.formconfirmation.js"></script>
+
+        <script>
+            /*globals QUnit, jQuery*/
+
+            QUnit.test("Labels containing inputs", function (assert) {
+                assert.propEqual(jQuery('#test_1 form').formConfirmation(), {
+                    'Text INPUT': 'Hello world!',
+                    'SELECT': 'Two',
+                    'TEXTAREA': 'Lorem ipsum dolor.'
+                });
+            });
+
+            QUnit.test("Labels linked to inputs", function (assert) {
+                assert.propEqual(jQuery('#test_2 form').formConfirmation(), {
+                    'Text INPUT': 'Hello world!',
+                    'SELECT': 'Two',
+                    'TEXTAREA': 'Lorem ipsum dolor.'
+                });
+            });
+        </script>
+    </body>
+</html>
