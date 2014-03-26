@@ -63,6 +63,20 @@
                     </div>
                 </form>
             </div>
+
+            <div id="test_3">
+                <form>
+                    <div>
+                        <label for="text_input_3">Text INPUT</label>
+                        <input id="text_input_3" type="text" value="Hello world!"/>
+                        <label for="text_input_3" class="error" style="display: none;">Please enter a valid value.</label>
+                    </div>
+                </form>
+            </div>
+
+            <div id="test_4">
+                <div></div>
+            </div>
         </div>
 
         <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
@@ -72,7 +86,7 @@
         <script>
             /*globals QUnit, jQuery*/
 
-            QUnit.test("Labels containing inputs", function (assert) {
+            QUnit.test("Supports labels containing inputs", function (assert) {
                 assert.propEqual(jQuery('#test_1 form').formConfirmation(), {
                     'Text INPUT': 'Hello world!',
                     'SELECT': 'Two',
@@ -80,12 +94,24 @@
                 });
             });
 
-            QUnit.test("Labels linked to inputs", function (assert) {
+            QUnit.test("Supports labels referencing inputs", function (assert) {
                 assert.propEqual(jQuery('#test_2 form').formConfirmation(), {
                     'Text INPUT': 'Hello world!',
                     'SELECT': 'Two',
                     'TEXTAREA': 'Lorem ipsum dolor.'
                 });
+            });
+
+            QUnit.test("Ignores error labels added by jquery-validation", function (assert) {
+                assert.propEqual(jQuery('#test_3 form').formConfirmation(), {
+                    'Text INPUT': 'Hello world!'
+                });
+            });
+
+            QUnit.test("Throws an exception if the called jQuery is not a form", function (assert) {
+                throws(function () {
+                    jQuery('#test_4 div').formConfirmation();
+                }, 'The called jQuery is not a form');
             });
         </script>
     </body>

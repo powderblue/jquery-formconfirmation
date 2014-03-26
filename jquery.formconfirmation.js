@@ -15,7 +15,7 @@
     function inputGetLabelText(oInputEl) {
         var oLabelEl;
 
-        oLabelEl = oInputEl.closest('form').find('label[for="' + oInputEl.attr('id') + '"]');
+        oLabelEl = oInputEl.closest('form').find('label[for="' + oInputEl.attr('id') + '"]').first();
 
         if (oLabelEl.size() > 0) {
             return oLabelEl.text();
@@ -36,10 +36,15 @@
          * Returns an object containing values of inputs listed against their labels.
          * 
          * @return Object
+         * @throws "The called jQuery is not a form"
          */
         formConfirmation: function () {
             var oFirstEl = this.first(),
                 oLabelledValues = {};
+
+            if (!oFirstEl.is('form')) {
+                throw 'The called jQuery is not a form';
+            }
 
             oFirstEl.find(':input').each(function () {
                 var oInputEl = jQuery(this),
